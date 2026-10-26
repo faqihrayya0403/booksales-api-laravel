@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="id">
 <head>
@@ -13,18 +14,27 @@
             <tr>
                 <th>ID</th>
                 <th>Nama Author</th>
+                <th>Email</th>
+                <th>Biografi</th>
             </tr>
         </thead>
         <tbody>
-            @foreach ($authors as $author)
+            @forelse ($authors as $author)
                 <tr>
-                    <td>{{ $author['id'] }}</td>
-                    <td>{{ $author['name'] }}</td>
+                    <td>{{ $author->id }}</td>
+                    <td>{{ $author->name }}</td>
+                    <td>{{ $author->email }}</td>
+                    <td>{{ $author->bio }}</td>
                 </tr>
-            @endforeach
+            @empty
+                <tr>
+                    <td colspan="4">Belum ada data author.</td>
+                </tr>
+            @endforelse
         </tbody>
     </table>
 
+    <p><a href="/books">Lihat Data Buku</a></p>
     <p><a href="/genres">Lihat Data Genre</a></p>
 </body>
 </html>
