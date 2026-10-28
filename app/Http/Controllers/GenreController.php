@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Http\Controllers;
 
 use App\Models\Genre;
@@ -9,6 +10,10 @@ class GenreController extends Controller
     {
         $genres = Genre::data();
 
-        return view('genres.index', compact('genres'));
+        return response()->json([
+            'success' => true,
+            'message' => 'Data genre berhasil diambil',
+            'data' => $genres
+        ], 200);
     }
 }
