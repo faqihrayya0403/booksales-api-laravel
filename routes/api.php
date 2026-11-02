@@ -5,6 +5,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BookController;
 use App\Http\Controllers\AuthorController;
 use App\Http\Controllers\GenreController;
+use App\Http\Controllers\TransactionController;
 
 // Route login
 Route::post('/login', [AuthController::class, 'login']);
@@ -26,6 +27,13 @@ Route::middleware('auth:sanctum')->group(function () {
     // Logout
     Route::post('/logout', [AuthController::class, 'logout']);
 
+    // Khusus user/customer
+    Route::middleware('role:user')->group(function () {
+        Route::post('/transactions', [TransactionController::class, 'store']);
+        Route::get('/transactions/{id}', [TransactionController::class, 'show']);
+        Route::put('/transactions/{id}', [TransactionController::class, 'update']);
+    });
+
     // Khusus admin
     Route::middleware('role:admin')->group(function () {
 
@@ -36,5 +44,9 @@ Route::middleware('auth:sanctum')->group(function () {
         // Genre
         Route::apiResource('genres', GenreController::class)
             ->only(['store', 'update', 'destroy']);
+
+        // Transaction
+        Route::get('/transactions', [TransactionController::class, 'index']);
+        Route::delete('/transactions/{id}', [TransactionController::class, 'destroy']);
     });
 });
