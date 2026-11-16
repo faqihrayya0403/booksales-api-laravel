@@ -12,6 +12,16 @@ Route::post('/login', [AuthController::class, 'login']);
 
 // Route buku
 Route::get('/books', [BookController::class, 'index']);
+Route::get('/books/{id}', [BookController::class, 'show']);
+
+// Khusus admin
+Route::middleware('auth:sanctum')->group(function () {
+    Route::middleware('role:admin')->group(function () {
+        Route::post('/books', [BookController::class, 'store']);
+        Route::put('/books/{id}', [BookController::class, 'update']);
+        Route::delete('/books/{id}', [BookController::class, 'destroy']);
+    });
+});
 
 // Route publik Author
 Route::apiResource('authors', AuthorController::class)
