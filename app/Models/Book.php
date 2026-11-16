@@ -10,6 +10,7 @@ class Book extends Model
 {
     protected $fillable = [
         'author_id',
+        'genre_id',
         'title',
         'isbn',
         'price',
@@ -20,6 +21,11 @@ class Book extends Model
     public function author(): BelongsTo
     {
         return $this->belongsTo(Author::class);
+    }
+
+    public function genre(): BelongsTo
+    {
+        return $this->belongsTo(Genre::class);
     }
 
     public function transactions(): HasMany

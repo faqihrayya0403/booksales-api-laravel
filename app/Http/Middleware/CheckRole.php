@@ -11,9 +11,14 @@ class CheckRole
     public function handle(Request $request, Closure $next, string $role): Response
     {
         if (!$request->user() || $request->user()->role !== $role) {
-            return response()->json([
-                'message' => 'Anda tidak memiliki akses.'
-            ], 403);
+
+            if ($request->is('api/*') || $request->expectsJson()) {
+                return response()->json([
+                    'message' => 'Anda tidak memiliki akses.'
+                ], 403);
+            }
+
+            abort(403, 'Anda tidak memiliki akses ke halaman ini.');
         }
 
         return $next($request);

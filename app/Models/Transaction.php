@@ -11,6 +11,7 @@ class Transaction extends Model
         'order_number',
         'customer_id',
         'book_id',
+        'quantity',
         'total_amount',
     ];
 

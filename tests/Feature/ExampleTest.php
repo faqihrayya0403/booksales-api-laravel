@@ -1,7 +1,7 @@
 <?php
 
-test('the application returns a successful response', function () {
+test('unauthenticated users are redirected to login', function () {
     $response = $this->get('/');
 
-    $response->assertNotFound();
+    $response->assertRedirect('/login');
 });

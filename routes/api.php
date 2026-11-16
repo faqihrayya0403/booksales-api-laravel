@@ -8,8 +8,9 @@ use App\Http\Controllers\GenreController;
 use App\Http\Controllers\TransactionController;
 
 // Route login
+// Route registrasi dan login
+Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
-
 // Route buku
 Route::get('/books', [BookController::class, 'index']);
 Route::get('/books/{id}', [BookController::class, 'show']);
